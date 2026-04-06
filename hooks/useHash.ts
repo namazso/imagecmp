@@ -11,7 +11,9 @@ export function useHash(): [string, (newHash: string) => void] {
   const [hash, setHashState] = useState('');
 
   useEffect(() => {
-    // Initialize from window after mount
+    // Synchronous setState is intentional: during hydration the initial
+    // state is '' (SSR-safe), so we must push the real hash immediately.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHashState(window.location.hash.slice(1));
 
     const onHashChange = () => {

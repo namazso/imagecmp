@@ -18,7 +18,7 @@ const URL_INPUT_CLASS =
   'bg-neutral-800 border border-neutral-700 rounded px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full';
 
 export function GalleryForm() {
-  const initialGallery = useRef(readInitialGallery()).current;
+  const [initialGallery] = useState(readInitialGallery);
   const [title, setTitle] = useState(initialGallery?.title ?? '');
   const [sources, setSources] = useState<string[]>(initialGallery?.sources ?? ['Source 1', 'Source 2']);
   const [scenes, setScenes] = useState<string[]>(initialGallery?.scenes ?? ['Scene 1']);
