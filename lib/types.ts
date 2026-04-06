@@ -1,4 +1,4 @@
-export const SITE_NAME = 'ImageCmp';
+export const SITE_NAME = 'ImgCmp';
 
 export interface Gallery {
   title: string;
