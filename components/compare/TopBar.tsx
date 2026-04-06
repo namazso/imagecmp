@@ -9,6 +9,7 @@ import type {
   SliderOrientation,
 } from '@/lib/types';
 import { OptionsPanel } from './OptionsPanel';
+import { HelpTooltip } from './HelpTooltip';
 import Link from 'next/link';
 import { SITE_NAME } from '@/lib/types';
 import { encodeGallery } from '@/lib/codec';
@@ -99,6 +100,8 @@ export function TopBar({
       >
         {mode === 'clicker' ? 'Clicker' : 'Slider'}
       </button>
+
+      <HelpTooltip />
 
       {/* Source selectors */}
       {mode === 'clicker' ? (
