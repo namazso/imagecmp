@@ -226,6 +226,13 @@ export function GalleryForm() {
           >
             {copied ? 'Copied!' : 'Copy'}
           </button>
+          <button
+            type="button"
+            onClick={() => window.open(generatedLink, '_blank')}
+            className="shrink-0 rounded bg-neutral-700 px-4 py-2 text-sm font-medium text-neutral-100 hover:bg-neutral-600"
+          >
+            Open
+          </button>
         </div>
       </div>
     </div>
