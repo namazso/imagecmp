@@ -73,6 +73,9 @@ export function CompareView({ gallery }: Props) {
             alignment={alignment}
             rendering={rendering}
             loaded={loaded}
+            sceneIndex={sceneIndex}
+            sceneCount={gallery.scenes.length}
+            setSceneIndex={setSceneIndex}
           />
         ) : (
           <SliderMode
@@ -88,6 +91,9 @@ export function CompareView({ gallery }: Props) {
             alignment={alignment}
             rendering={rendering}
             loaded={loaded}
+            sceneIndex={sceneIndex}
+            sceneCount={gallery.scenes.length}
+            setSceneIndex={setSceneIndex}
           />
         )}
       </div>

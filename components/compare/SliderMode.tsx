@@ -17,6 +17,9 @@ interface Props {
   alignment: Alignment;
   rendering: ImageRenderingMode;
   loaded: boolean;
+  sceneIndex: number;
+  sceneCount: number;
+  setSceneIndex: (i: number) => void;
 }
 
 const ALIGNMENT_CLASSES: Record<Alignment, string> = {
@@ -46,6 +49,9 @@ export function SliderMode({
   alignment,
   rendering,
   loaded,
+  sceneIndex,
+  sceneCount,
+  setSceneIndex,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -70,7 +76,10 @@ export function SliderMode({
 
   // Keyboard shortcuts: 1-9 for sourceA, q-p for sourceB
   const keyMap = useMemo(() => {
-    const map: Record<string, () => void> = {};
+    const map: Record<string, () => void> = {
+      ArrowDown: () => setSceneIndex((sceneIndex + 1) % sceneCount),
+      ArrowUp: () => setSceneIndex((sceneIndex - 1 + sceneCount) % sceneCount),
+    };
     for (let i = 1; i <= 9; i++) {
       const idx = i - 1;
       if (idx < sources.length) {
@@ -84,7 +93,7 @@ export function SliderMode({
       }
     }
     return map;
-  }, [sources.length, setSourceA, setSourceB]);
+  }, [sources.length, setSourceA, setSourceB, sceneIndex, sceneCount, setSceneIndex]);
 
   useKeyboard(keyMap);
 

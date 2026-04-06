@@ -9,8 +9,8 @@ const SECTIONS = [
       'Click a source button to view that image',
       'Click the active source to toggle its checkbox',
       'Unchecked sources are skipped when navigating',
-      'Arrow keys (←→ or ↑↓) cycle through checked sources',
-      'Number keys (1–9) jump to a source directly',
+      'Left/Right arrows (←→) cycle through checked sources',
+      'Number keys (1\u20139) jump to a source directly',
     ],
   },
   {
@@ -28,6 +28,12 @@ const SECTIONS = [
       'Scaling — how images are sized (native, fit, or fill)',
       'Alignment — where images anchor when smaller than the canvas',
       'Rendering — interpolation mode (smooth, crisp, or pixelated)',
+    ],
+  },
+  {
+    heading: 'General',
+    items: [
+      'Up/Down arrows (\u2191\u2193) cycle through scenes',
     ],
   },
 ] as const;

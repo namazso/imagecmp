@@ -15,6 +15,9 @@ interface Props {
   alignment: Alignment;
   rendering: ImageRenderingMode;
   loaded: boolean;
+  sceneIndex: number;
+  sceneCount: number;
+  setSceneIndex: (i: number) => void;
 }
 
 const ALIGNMENT_CLASSES: Record<Alignment, string> = {
@@ -40,6 +43,9 @@ export function ClickerMode({
   alignment,
   rendering,
   loaded,
+  sceneIndex,
+  sceneCount,
+  setSceneIndex,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -78,9 +84,9 @@ export function ClickerMode({
   const keyMap = useMemo(() => {
     const map: Record<string, () => void> = {
       ArrowRight: () => navigateChecked(1),
-      ArrowDown: () => navigateChecked(1),
       ArrowLeft: () => navigateChecked(-1),
-      ArrowUp: () => navigateChecked(-1),
+      ArrowDown: () => setSceneIndex((sceneIndex + 1) % sceneCount),
+      ArrowUp: () => setSceneIndex((sceneIndex - 1 + sceneCount) % sceneCount),
     };
     for (let i = 1; i <= 9; i++) {
       const idx = i - 1;
@@ -89,7 +95,7 @@ export function ClickerMode({
       }
     }
     return map;
-  }, [sources.length, setActiveSource, navigateChecked]);
+  }, [sources.length, setActiveSource, navigateChecked, sceneIndex, sceneCount, setSceneIndex]);
 
   useKeyboard(keyMap);
 
