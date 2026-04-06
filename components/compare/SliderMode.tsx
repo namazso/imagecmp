@@ -158,7 +158,19 @@ export function SliderMode({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
-      {/* Wrapper to position images absolutely within */}
+      {/* Keep all source images in the DOM to prevent browser eviction */}
+      {urls.map((u, i) => {
+        if (!u || i === sourceA || i === sourceB) return null;
+        return (
+          <img
+            key={`keep-${i}`}
+            src={u}
+            alt=""
+            draggable={false}
+            style={{ position: 'absolute', visibility: 'hidden', pointerEvents: 'none' }}
+          />
+        );
+      })}
       <div className="relative" style={imgStyle.wrapper}>
         {/* Image A — base layer */}
         <img

@@ -123,16 +123,27 @@ export function ClickerMode({
   return (
     <div
       ref={containerRef}
-      className={`flex h-full w-full ${ALIGNMENT_CLASSES[alignment]} ${needsScroll ? 'overflow-auto' : 'overflow-hidden'}`}
+      className={`relative flex h-full w-full ${ALIGNMENT_CLASSES[alignment]} ${needsScroll ? 'overflow-auto' : 'overflow-hidden'}`}
       onClick={() => navigateChecked(1)}
     >
-      <img
-        src={url}
-        alt={sources[activeSource] ?? ''}
-        draggable={false}
-        style={{ ...imgStyle, imageRendering: rendering }}
-        className="block max-w-none"
-      />
+      {urls.map((u, i) => {
+        if (!u) return null;
+        const isActive = i === activeSource;
+        return (
+          <img
+            key={i}
+            src={u}
+            alt={sources[i] ?? ''}
+            draggable={false}
+            className="block max-w-none"
+            style={
+              isActive
+                ? { ...imgStyle, imageRendering: rendering }
+                : { position: 'absolute', visibility: 'hidden', pointerEvents: 'none' }
+            }
+          />
+        );
+      })}
     </div>
   );
 }
