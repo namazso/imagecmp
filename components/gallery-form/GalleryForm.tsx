@@ -2,7 +2,14 @@
 
 import { useState, useEffect, useCallback, useRef, Fragment } from 'react';
 import type { Gallery } from '@/lib/types';
-import { encodeGallery } from '@/lib/codec';
+import { encodeGallery, decodeGallery } from '@/lib/codec';
+
+function readInitialGallery(): Gallery | null {
+  if (typeof window === 'undefined') return null;
+  const hash = window.location.hash.slice(1);
+  if (!hash) return null;
+  return decodeGallery(hash);
+}
 
 const INPUT_CLASS =
   'bg-neutral-800 border border-neutral-700 rounded px-3 py-2 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full';
@@ -11,10 +18,11 @@ const URL_INPUT_CLASS =
   'bg-neutral-800 border border-neutral-700 rounded px-3 py-2 text-sm text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full';
 
 export function GalleryForm() {
-  const [title, setTitle] = useState('');
-  const [sources, setSources] = useState<string[]>(['Source 1', 'Source 2']);
-  const [scenes, setScenes] = useState<string[]>(['Scene 1']);
-  const [urls, setUrls] = useState<string[][]>([['', '']]);
+  const initialGallery = useRef(readInitialGallery()).current;
+  const [title, setTitle] = useState(initialGallery?.title ?? '');
+  const [sources, setSources] = useState<string[]>(initialGallery?.sources ?? ['Source 1', 'Source 2']);
+  const [scenes, setScenes] = useState<string[]>(initialGallery?.scenes ?? ['Scene 1']);
+  const [urls, setUrls] = useState<string[][]>(initialGallery?.urls ?? [['', '']]);
   const [generatedLink, setGeneratedLink] = useState('');
   const [copied, setCopied] = useState(false);
   const copiedTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -25,6 +33,7 @@ export function GalleryForm() {
       const gallery: Gallery = { title, sources, scenes, urls };
       const encoded = encodeGallery(gallery);
       setGeneratedLink(`${window.location.origin}/compare#${encoded}`);
+      history.replaceState(null, '', `#${encoded}`);
     }, 300);
     return () => clearTimeout(timer);
   }, [title, sources, scenes, urls]);

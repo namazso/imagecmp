@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SITE_NAME, type Gallery, type CompareMode, type ScaleMode, type Alignment, type ImageRenderingMode, type SliderOrientation } from '@/lib/types';
 import { useImagePreloader } from '@/hooks/useImagePreloader';
 import { TopBar } from './TopBar';
@@ -29,6 +29,10 @@ export function CompareView({ gallery }: Props) {
   const { loaded, dimensions } = useImagePreloader(sceneUrls);
 
   const pageTitle = gallery.title ? `${gallery.title} | ${SITE_NAME}` : SITE_NAME;
+
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
 
   return (
     <div className="flex h-screen flex-col bg-neutral-950 text-neutral-100">

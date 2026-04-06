@@ -9,6 +9,9 @@ import type {
   SliderOrientation,
 } from '@/lib/types';
 import { OptionsPanel } from './OptionsPanel';
+import Link from 'next/link';
+import { SITE_NAME } from '@/lib/types';
+import { encodeGallery } from '@/lib/codec';
 
 interface Props {
   gallery: Gallery;
@@ -70,6 +73,10 @@ export function TopBar({
 
   return (
     <div className="flex items-center gap-4 border-b border-neutral-800 bg-neutral-900 px-4 py-2">
+      <Link href="/" className="text-sm font-bold text-neutral-100 hover:text-white">
+        {SITE_NAME}
+      </Link>
+
       {/* Scene selector */}
       {gallery.scenes.length > 1 && (
         <select
@@ -176,6 +183,12 @@ export function TopBar({
         rendering={rendering}
         setRendering={setRendering}
       />
+      <Link
+        href={`/create#${encodeGallery(gallery)}`}
+        className="rounded bg-neutral-700 px-3 py-1 text-sm hover:bg-neutral-600"
+      >
+        Edit
+      </Link>
     </div>
   );
 }
