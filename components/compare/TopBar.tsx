@@ -186,12 +186,12 @@ export function TopBar({
         rendering={rendering}
         setRendering={setRendering}
       />
-      <Link
+      <a
         href={`/create#${encodeGallery(gallery)}`}
         className="rounded bg-neutral-700 px-3 py-1 text-sm hover:bg-neutral-600"
       >
         Edit
-      </Link>
+      </a>
     </div>
   );
 }

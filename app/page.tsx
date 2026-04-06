@@ -37,12 +37,12 @@ export default function Home() {
             >
               Create Gallery
             </Link>
-            <Link
+            <a
               href={`/compare#${exampleHash}`}
               className="inline-block bg-neutral-700 hover:bg-neutral-600 text-neutral-100 px-6 py-3 rounded-lg font-medium transition-colors"
             >
               Example Gallery
-            </Link>
+            </a>
           </div>
         </div>
       </main>
